@@ -100,8 +100,17 @@ class String
     # "cats".substrings     # => ["c", "ca", "cat", "cats", "a", "at", "ats", "t", "ts", "s"]
     # "cats".substrings(2)  # => ["ca", "at", "ts"]
     def substrings(length = nil)
-
-
+        new_arr = []
+        (0...self.length).each do |idx1|
+            (idx1...self.length).each do |idx2|
+                new_arr << self[idx1..idx2]
+            end
+        end
+        if length.nil?
+            new_arr
+        else 
+            new_arr.select { |str| str.length == length }
+        end
 
     end
 
@@ -117,5 +126,12 @@ class String
     # "zebra".caesar_cipher(4)    #=> "difve"
     def caesar_cipher(num)
         alphabet = ("a".."z").to_a
+        new_str = ""
+        self.each_char do |ele|
+            new_str += alphabet[(alphabet.index(ele) + num) % 26]
+        end
+        new_str
     end
 end
+
+p "apple".caesar_cipher(1)    #=> "bqqmf"
